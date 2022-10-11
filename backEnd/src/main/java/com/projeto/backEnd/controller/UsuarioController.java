@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Optional;
 
-
 @RestController
 @RequestMapping(path = "/usuarios")
 public class UsuarioController {
@@ -29,14 +28,14 @@ public class UsuarioController {
         return ResponseEntity.ok(usuarioService.buscarNomes());
     }
 
-    @CrossOrigin(origins = "*")
-    @GetMapping(path = "/{id}")
+    @CrossOrigin(origins = "http://127.0.0.1:5500")
+    @GetMapping(path = "/pesquisaid/{id}")
     public ResponseEntity<Optional<UsuarioModel>> buscaPorId (@PathVariable Long id) {
-        return ResponseEntity.ok().body(usuarioRepository.findById(id)) ;
+        return ResponseEntity.ok().body(usuarioService.buscarId(id)) ;
     }
 
     @CrossOrigin(origins = "http://127.0.0.1:5500")
-    @GetMapping(path = "pesquisa/{nomeUsuario}")
+    @GetMapping(path = "/pesquisa/{nomeUsuario}")
     public Optional<List<UsuarioModel>> tipoDeConta(String nomeUsuario){
         return Optional.ofNullable(usuarioRepository.findByNomeUsuario(nomeUsuario));
     }
