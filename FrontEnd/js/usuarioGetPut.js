@@ -31,5 +31,36 @@
         dataNascimento.value = data.dataNascimento;
         cpf.value = data.cpf;
         email.value = data.email;
-        console.log(email);
         }
+
+//metodo de atualizar cadastro de cliente
+
+const btnUpdate = document.querySelector("#btnUpdate");
+
+btnUpdate.addEventListener('click', (e) =>{
+  //pegar valor digitado pelo cliente no id
+  const idUsuario2 = document.querySelector("#idUsuario");
+  const idUser2 = idUsuario2.value;
+  console.log(idUser2);
+
+  const form = document.getElementById("pesquisaUsuario");
+  const formData = new FormData(form);
+  const data = Object.fromEntries(formData);
+
+  // enviado ao backend
+  fetch(`http://localhost:8080/usuarios/put/${idUser2}`, {
+    method: 'PATCH',
+    cache: 'default',
+    headers: {
+        'Content-Type':'application/json'
+    },
+    body: JSON.stringify(data)
+}).then(res => res.json())
+    .then(data => console.log(data))
+    .catch(error => console.log(error));
+});
+
+function msg() {
+  alert("Atualizado com sucesso!");
+  window.location.reload(true);
+}

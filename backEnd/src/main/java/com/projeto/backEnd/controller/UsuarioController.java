@@ -25,12 +25,12 @@ public class UsuarioController {
     @CrossOrigin(origins = "http://127.0.0.1:5500")
     @GetMapping
     public ResponseEntity<List<UsuarioModel>> buscarTudo () {
-        return ResponseEntity.ok(usuarioService.buscarNomes());
+        return ResponseEntity.ok(usuarioService.buscarUsuarios());
     }
 
     @CrossOrigin(origins = "http://127.0.0.1:5500")
     @GetMapping(path = "/pesquisaid/{id}")
-    public ResponseEntity<Optional<UsuarioModel>> buscaPorId (@PathVariable Long id) {
+    public ResponseEntity <UsuarioModel> buscaPorId (@PathVariable Long id) {
         return ResponseEntity.ok().body(usuarioService.buscarId(id)) ;
     }
 
@@ -49,8 +49,9 @@ public class UsuarioController {
 
     @CrossOrigin(origins = "http://127.0.0.1:5500")
     @PatchMapping(path = "/put/{id}")
-    public ResponseEntity<UsuarioModel> alteraUsuario(@RequestBody UsuarioModel usuarioModel){
-        return ResponseEntity.ok(usuarioService.alteraCadUsuario(usuarioModel));
+    public ResponseEntity<UsuarioModel> atualizaUsuario(@RequestBody UsuarioModel usuarioModel, @PathVariable Long id){
+        UsuarioModel usuarioNewObj = usuarioService.atualizaCadUsuario(usuarioModel, id);
+        return ResponseEntity.ok().body(usuarioNewObj);
     }
 
     @CrossOrigin(origins = "http://127.0.0.1:5500")
