@@ -1,3 +1,4 @@
+    //pegar valores e preencher os campos que vem da pesquisa
     //pegar valor digitado pelo cliente no id
     const idUsuario = document.querySelector("#idUsuario");
 
@@ -62,5 +63,31 @@ btnUpdate.addEventListener('click', (e) =>{
 
 function msg() {
   alert("Atualizado com sucesso!");
+  window.location.reload(true);
+}
+
+//Adicionar endereco no usuário
+const formDataEndereco = document.getElementById("endereco-form");
+
+  formDataEndereco.addEventListener('submit', event =>{
+  event.preventDefault();
+
+  const formData2 = new FormData(formDataEndereco); // Pega o formulário e java em uma variável 
+  const dataEndreco = Object.fromEntries(formData2); // Se torna em objeto 
+  
+  fetch(`http://localhost:8080/enderecos/salvar`, {
+    method: 'POST',
+    headers: {
+        'Content-Type':'application/json'
+    },
+    body: JSON.stringify(dataEndreco)
+  }).then(res => res.json())
+  .then(data => console.log(data))
+  .catch(error => console.log(error));
+});
+
+
+function msg2() {
+  alert("Salvo com sucesso!");
   window.location.reload(true);
 }
